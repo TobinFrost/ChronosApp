@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos App</title>
+        </f:facet>
+
+        <f:facet name="middle">
+        	<h:outputScript name="js/jQuery/jquery-1.11.0.min.js"/>
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            <h:outputScript name="js/localFr.js" />
+            
+            
+            
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+	<!-- <h:outputStylesheet library="css" name="default-style.css" /> -->
+</h:head> 
+<body> 
+
+	<ui:composition template="/supervisor.xhtml">
+			<ui:define name="content">
+			<h:form id="form">
+				<p:panel header="Demande de Permission">
+				
+				<p:growl id="messageGrowl" style="margin-top:20px" showSummary="true"/>
+					<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+						
+						
+							<p:outputLabel for="Employee" value="Employe : "/>
+							
+							<p:selectOneMenu id="Employee" value="#{permissionBean.idEmployeeToSet}" style="width:100%;color:black">
+									<f:selectItem  itemLabel="" itemValue="-1"/>
+									<f:selectItems value="#{permissionBean.employees}"  var="employee" itemLabel="#{employee.prenom} #{employee.nom}" itemValue="#{employee.id}"/>
+							</p:selectOneMenu>
+							
+							<p:outputLabel for="debutPermis" value="Début Permission :" />
+        					<p:calendar id="debutPermis" value="#{permissionBean.newPermission.debutPermission}" locale="fr" navigator="true" pattern="dd-mmm-yyyy" />
+        					
+        					<p:outputLabel for="finPermis" value="Fin Permission :" />
+        					<p:calendar id="finPermis" value="#{permissionBean.newPermission.finpermission}" locale="fr" navigator="true" pattern="dd-mmm-yyyy" />
+							
+							
+							<p:outputLabel for="typePermission" value="Motif de la Permission : "/>
+							<h:selectOneMenu id="typePermission" value="#{permissionBean.newPermission.typePermission}" style="width:100%;color:black">
+									<f:selectItem  itemLabel="" itemValue="" noSelectionOption="true"/>
+									<f:selectItem  itemLabel="RTT" itemValue="Congé"/>
+									<f:selectItem  itemLabel="Séminaire" itemValue="Seminaire"/>
+									
+							</h:selectOneMenu>
+							
+							
+							<p:commandButton ajax="false" value="Creer"  icon="ui-icon-plus" update="form" actionListener="#{permissionBean.createNewPermission}"/>
+						
+					</h:panelGrid>
+				
+				
+			</p:panel>
+			</h:form>
+			</ui:define>
+	</ui:composition>
+			
+
+</body> 
+</html>

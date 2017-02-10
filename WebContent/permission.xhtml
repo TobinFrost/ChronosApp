@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos App</title>
+        </f:facet>
+
+        <f:facet name="middle">
+        	<h:outputScript name="js/jQuery/jquery-1.11.0.min.js"/>
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+	<!-- <h:outputStylesheet library="css" name="default-style.css" /> -->
+</h:head> 
+<body> 
+		<ui:composition template="/supervisor.xhtml">
+					<ui:define name="content">
+						<h:form id="form">
+							<p:dataTable style="margin-bottom:20px" id="permissionTable" border="0" rules="all" value="#{permissionBean.permissions}"	var="permission">
+								<p:column headerText="Nom Employe">
+							        <h:outputText value="#{permission.employee.nom}" />
+							    </p:column>
+							 
+							    <p:column headerText="Prenom Employe">
+							        <h:outputText value="#{permission.employee.prenom}" />
+							    </p:column>
+							 
+							    <p:column headerText="Debut Permission">
+							        <h:outputText value="#{permission.debutPermission}" />
+							    </p:column>
+							    
+							    <p:column headerText="Fin Permission">
+							        <h:outputText value="#{permission.finpermission}" />
+							    </p:column>
+							    
+							    <p:column headerText="Accordé">
+							        <h:outputText value="#{permission.accorded}" />
+							    </p:column>
+							 
+							    <p:column headerText="Type de Permission">
+							        <h:outputText value="#{permission.typePermission}" />
+							    </p:column>
+							</p:dataTable>
+						</h:form>
+					</ui:define>
+		</ui:composition>
+
+</body> 
+</html>

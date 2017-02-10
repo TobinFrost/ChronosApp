@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos App</title>
+        </f:facet>
+
+        <f:facet name="middle">
+        	<h:outputScript name="js/jQuery/jquery-1.11.0.min.js"/>
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+	<!-- <h:outputStylesheet library="css" name="default-style.css" /> -->
+</h:head> 
+<body> 
+
+	<div id="page">
+
+	    <div id="header">
+		<ui:insert name="header" >
+		  <ui:include src="/template/supervisor/supervisorHeader.xhtml" />
+		</ui:insert>
+	    </div>
+
+		<div id="leftMenu">
+	  	<ui:insert name="leftMenu" >
+	 	  <ui:include src="/template/responsable/defaultLeftMenu.xhtml" />
+	   	</ui:insert>
+	    </div>
+	
+	    <div id="content">
+	     <div class="row">
+        
+            
+            
+                
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	  	<ui:insert name="content" >
+	 	  <ui:include src="/template/supervisor/defaultContent.xhtml" />
+	   	</ui:insert>
+	   		</div>
+        </div>
+	    </div>
+
+	    <div id="footer">
+	    	<ui:insert name="footer" >
+	    	  <ui:include src="/template/default/defaultFooter.xhtml" />
+	    	</ui:insert>
+    	    </div>
+
+        </div>
+
+</body> 
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos Login</title>
+        </f:facet>
+
+        <f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+    </h:head>
+ 
+<body> 
+	<div class="container" style="background-color: #F7F7F7;max-width: 350px;padding: 40px 40px;margin: 0 auto 25px;border-radius: 2px">
+
+      <h:form class="form-signin">
+      	<p:messages id="messageGrowl" autoUpdate="true" closable="true" style="margin-top:20px" showDetail="true"/>
+      	<h:graphicImage library="img" name="my_logo.png"  style="height: 120px;width: 180px;margin: 0 auto ;vertical-align: middle;display: block;" />
+        <h2 align="center" class="form-signin-heading">Chronos App</h2>
+        <label for="inputMatricule" class="sr-only">Matricule</label>
+        	<p:inputText value="#{pointageBean.employeeMatricule}" id="inputMatricule" class="form-control" placeholder="Matricule" required="true" autofocus="true"/>
+        	
+        <label for="inputService" class="sr-only">Service</label>	
+        <p:selectOneMenu value="#{pointageBean.idServiceToPoint}" style="width:100%;color:black">
+        		<f:selectItem itemValue="-1" />
+				<f:selectItems value="#{pointageBean.services}"  var="service" itemLabel="#{service.nom}" itemValue="#{service.id}"/>
+		</p:selectOneMenu>	
+		<p:commandButton class="btn btn-lg btn-primary btn-block" ajax="false" value="Pointer"  icon="ui-icon-plus"  actionListener="#{pointageBean.pointerEmployee}"/>
+        <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Pointer</button> -->
+      </h:form>
+
+    </div>
+	
+	
+</body> 
+</html>

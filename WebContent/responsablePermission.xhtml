@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos App</title>
+        </f:facet>
+
+        <f:facet name="middle">
+        	<h:outputScript name="js/jQuery/jquery-1.11.0.min.js"/>
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+	<!-- <h:outputStylesheet library="css" name="default-style.css" /> -->
+</h:head> 
+<body> 
+
+	<ui:composition template="/responsable.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<p:repeat value="#{permissionBean.notAccordedPermissions}" var="permission">
+					<p:panel header="Demande Permission service #{permission.employee.service.nom}" style="margin-bottom:10px;">
+						<p:outputPanel>
+			                <h:panelGrid columns="2" cellpadding="5">
+			                    <h:outputText value="Par l'Employé :" />
+			                    <h:outputText value="#{permission.employee.prenom} #{permission.employee.nom}" style="font-weight: bold"/>
+			 
+			                    <h:outputText value="Délivré au Supérieur :" />
+			                    <h:outputText value="#{permission.employee.service.lead.prenom} #{permission.employee.service.lead.nom}" style="font-weight: bold"/>
+			 
+			                    <h:outputText value="Durée du :" />
+			                    <h:outputText value="  #{permission.debutPermission} 'au' #{permission.finpermission}" style="font-weight: bold"/>
+			                    
+			                    <h:outputText value="Motif :" />
+			                    <h:outputText value="#{permission.typePermission}" style="font-weight: bold"/>
+			                    
+			                    <p:commandButton actionListener="#{permissionBean.decide(permission.id,true)}" value="Accepter"/>
+			                    <p:commandButton actionListener="#{permissionBean.decide(permission.id,false)}" value="Refuser"/>
+			                    
+			                </h:panelGrid>
+			            </p:outputPanel>
+					</p:panel>
+				</p:repeat>
+				
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos App</title>
+        </f:facet>
+
+        <f:facet name="middle">
+        	<h:outputScript name="js/jQuery/jquery-1.11.0.min.js"/>
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+	<!-- <h:outputStylesheet library="css" name="default-style.css" /> -->
+</h:head> 
+<body> 
+
+	<ui:composition template="/supervisor.xhtml">
+			<ui:define name="content">
+			<h:form id="form">
+				<p:dataTable editable="true" style="margin-bottom:20px" id="serviceTable" border="0" rules="all" value="#{serviceBean.services}"	var="service">
+					
+					<p:ajax event="rowEdit" listener="#{serviceBean.onRowEdit}" update="serviceTable" />
+				
+					<p:column headerText="Nom">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{service.nom}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#{service.nom}" style="width:100%;color:black" />
+							</f:facet>
+						</p:cellEditor>						
+					</p:column>
+					
+					<p:column headerText="Description">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{service.description}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputText value="#{service.description}" style="width:100%;color:black" />
+							</f:facet>
+						</p:cellEditor>						
+					</p:column>
+					
+					<p:column headerText="Responsable">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{service.lead.prenom} #{service.lead.nom}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{serviceBean.idEmployeeToSet}" style="width:100%;color:black">
+									<f:selectItem itemValue="#{service.lead.id}" itemLabel="#{service.lead.prenom} #{service.lead.nom}" />
+									<f:selectItems  value="#{serviceBean.employees}"  var="employee" itemLabel="#{employee.prenom} #{employee.nom}" itemValue="#{employee.id}"/>
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>						
+					</p:column>
+					
+					
+					
+					
+					<p:column style="width:5%;text-align: center">
+             			<p:commandButton update=":form:serviceDetail" oncomplete="PF('serviceDialog').show()" icon="ui-icon-search" title="View">
+                			<f:setPropertyActionListener value="#{service}" target="#{serviceBean.selectedService}" />
+            			</p:commandButton>
+        			</p:column>
+        				
+        			<p:growl id="messageService" showDetail="true" />	
+        				
+        			<p:column style="width:5%;text-align: center">
+        				<p:commandButton icon="ui-icon-trash"  actionListener="#{serviceBean.deleteService(service.id)}" update="messageService">
+        					<p:confirm header="Confirmation" message="Etes vous sure de supprimer le service : #{service.nom} ?" icon="ui-icon-alert" />
+        				</p:commandButton>	
+        			</p:column>
+			
+					<p:column style="width:5%;text-align: center">
+       					<p:rowEditor />           				
+       				</p:column>
+			
+				</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        			<p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    			</p:confirmDialog>
+				
+				<p:dialog header="Service Info" widgetVar="serviceDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="serviceDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty serviceBean.selectedService}" columnClasses="value">
+                <f:facet name="header">
+                     <h:outputText  value="#{serviceBean.selectedService.nom}" />
+                </f:facet>
+ 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{serviceBean.selectedService.id}" />
+ 
+                <h:outputText value="Nom" />
+                <h:outputText value="#{serviceBean.selectedService.nom}" />
+ 
+                <h:outputText value="Description" />
+                <h:outputText value="#{serviceBean.selectedService.description}" />
+ 
+                <h:outputText value="Responsable" />
+                <h:outputText value="#{serviceBean.selectedService.lead.nom}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+				
+				
+			</h:form>
+			
+			
+			<p:separator/>
+			
+			<p:panel header="Nouvel Service">
+				<h:form id="formAddService">
+				<p:growl id="messageGrowl" style="margin-top:20px" showSummary="true"/>
+					<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+						
+						
+							<p:outputLabel for="nomService" value="Nom : "/>
+							
+							<p:inputText id="nomService" value="#{serviceBean.newService.nom}" style="margin-bottom:10px"/>
+							
+							<p:outputLabel for="descriptionService" value="Description : "/>
+							
+							<p:inputText id="descriptionService" value="#{serviceBean.newService.description}" style="margin-bottom:10px"/>
+							
+							<p:outputLabel for="serviceLead" value="Responsable : "/>
+							
+							<p:selectOneMenu id="serviceLead" value="#{serviceBean.idEmployeeToSet}" style="width:100%;color:black">
+									<f:selectItem  itemLabel="" itemValue="-1"/>
+									<f:selectItems value="#{serviceBean.employees}"  var="employee" itemLabel="#{employee.prenom} #{employee.nom}" itemValue="#{employee.id}"/>
+							</p:selectOneMenu>
+							
+							<p:commandButton ajax="false" value="Creer"  icon="ui-icon-plus" update="formAddService" actionListener="#{serviceBean.createNewService}"/>
+						
+					</h:panelGrid>
+				
+				</h:form>
+			</p:panel>
+				
+			</ui:define>
+			
+		</ui:composition>
+	
+</body> 
+</html>

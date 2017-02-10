@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+<f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+            <title>Chronos App</title>
+        </f:facet>
+
+        <f:facet name="middle">
+        	<h:outputScript name="js/jQuery/jquery-1.11.0.min.js"/>
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+
+            <h:outputStylesheet name="css/dashboard.css" />
+
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" /> -->
+
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+            
+        </f:facet>
+
+        <f:facet name="last">
+            <h:outputStylesheet name="css/font-awesome.css" />
+        </f:facet>
+
+	<!-- <h:outputStylesheet library="css" name="default-style.css" /> -->
+</h:head> 
+<body> 
+
+	<ui:composition template="/supervisor.xhtml">
+		
+			<ui:define name="content">
+			
+			
+			
+			<h:form id="formEditPolicie">
+				<p:panel header="Politique Horaire">
+				<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />
+					<p:panelGrid class="ui-noborder" style="margin-bottom:10px" cellpadding="10">
+						<f:facet name="header">
+						<p:row>
+							<p:column style="font-weight: bold;">Description</p:column>
+							<p:column style="font-weight: bold;">Heure (HH)</p:column>
+							<p:column style="font-weight: bold;">Minute (MM)</p:column>
+						</p:row>
+						</f:facet>
+							
+						<p:row>
+							<p:column style="font-weight: bold;">Heure et Minute Limite de Présence</p:column>
+							<p:column>
+								<p:inputNumber  value="#{policieBean.policie.heureLimitPointage}"></p:inputNumber>
+							</p:column>
+							<p:column>
+								<p:inputNumber maxValue="60.00" value="#{policieBean.policie.minuteLimitPointage}"></p:inputNumber>
+							</p:column>
+						
+						
+						</p:row>
+						
+						<p:row>
+							<p:column style="font-weight: bold;">Heure et Minute Debut de Pause</p:column>
+							<p:column>
+								<p:inputNumber  value="#{policieBean.policie.heureDebutPause}"></p:inputNumber>
+							</p:column>
+							<p:column>
+								<p:inputNumber maxValue="60.00" value="#{policieBean.policie.minuteDebutPause}"></p:inputNumber>
+							</p:column>
+						
+						
+						</p:row>
+						<p:row>
+							<p:column style="font-weight: bold;">Heure et Minute Fin de Pause</p:column>
+							<p:column>
+								<p:inputNumber  value="#{policieBean.policie.heureFinPause}"></p:inputNumber>
+							</p:column>
+							<p:column>
+								<p:inputNumber maxValue="60.00" value="#{policieBean.policie.minuteFinPause}"></p:inputNumber>
+							</p:column>
+						
+						
+						</p:row>
+						
+					</p:panelGrid>
+					<p:commandButton action="parametre" actionListener="#{policieBean.modifyPolicie}" icon="ui-icon-plus"  value="Enregistrer"/>
+				</p:panel>
+						
+			</h:form>
+			
+				
+			
+				
+			</ui:define>
+			
+		</ui:composition>
+	
+</body> 
+</html>

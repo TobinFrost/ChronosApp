@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+
+<ui:composition >
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+    	<li class="nav-header">Paramètrage</li>
+        <li class=""><a href="#">Tableau de Bord</a></li>
+        <li><p:link outcome="parametre" value="Politique Horaire" /></li>
+        <li><p:link outcome="service" value="Service" /></li>
+        <li><p:link outcome="employee" value="Employe" /></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+    <li class="nav-header">Pointage</li>
+    	<li><p:link outcome="pointage" value="Présence" /></li>
+    	<li><p:link outcome="createPointageSession" value="Nouvelle Session" /></li>
+        <li><p:link outcome="currentsPointageSessions" value="Pointages Courants" /></li>
+        <li><p:link outcome="archivePointage" value="Archives" /></li>
+        
+    </ul>
+    <ul class="nav nav-sidebar">
+    <li class="nav-header">Permission</li>
+        <li><p:link outcome="permission" value="Permissions" /></li>
+        <li><p:link outcome="createPermission" value="Nouvelle Demande" /></li>
+        <li><a href="">Archives</a></li>
+    </ul> 
+</div>       
+</ui:composition>
+</body> 
+</html>
